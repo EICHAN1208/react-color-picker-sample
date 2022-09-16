@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import "./App.css";
+import { HexColorPicker } from "react-colorful";
+import { useState } from "react";
 
 function App() {
+  const [color, setColor] = useState("#aabbcc");
+  const [isOpen, toggle] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* react-colorful */}
+      <div className="mx-auto container flex-col justify-center w-100">
+        <div className="relative top-16 w-1/3 m-auto">
+          <div
+            css={css`
+              width: 100px;
+              height: 20px;
+              margin-top: 10px;
+              margin-left: 10px;
+              background-color: ${color};
+              border-radius: 4px;
+              position: absolute;
+              z-index: 1;
+            `}
+          />
+
+          <input
+            name="text"
+            type="text"
+            className={`relative w-full block px-3 py-2 bg-gray-50 border rounded-md pl-32`}
+            value={color}
+            onClick={() => toggle(!isOpen)}
+          />
+          {isOpen && (
+            <HexColorPicker
+              color={color}
+              onChange={setColor}
+              css={css`
+                margin-top: 1px;
+              `}
+            />
+          )}
+        </div>
+      </div>
+    </>
   );
 }
 
